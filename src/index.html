@@ -1,10 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>WG Forge Test</title>
-</head>
-<body>
-    <div id="app"></div>
-</body>
+    <script>
+      function tableSearch() {
+        let phrase = document.getElementById("search");
+        let table = document.getElementById("info-table");
+        let regPhrase = new RegExp(phrase.value, "i");
+        let flag = false;
+        for (let i = 1; i < table.rows.length; i++) {
+          flag = false;
+          for (let j = table.rows[i].cells.length - 1; j >= 0; j--) {
+            flag = regPhrase.test(table.rows[i].cells[j].innerText);
+            if (flag) break;
+          }
+          if (flag) {
+            table.rows[i].style.display = "";
+          } else {
+            table.rows[i].style.display = "none";
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <script src="app.js"></script>
+    <div id="app">
+      <table class="table table-striped" id="info-table">
+        <thead>
+          <tr>
+            <th>Search:</th>
+            <th>
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Input..."
+                id="search"
+                onkeyup="tableSearch()"
+              />
+            </th>
+          </tr>
+          <tr>
+            <th>Transaction ID</th>
+            <th>User Info</th>
+            <th>Order Date</th>
+            <th>Order Amount</th>
+            <th>Card Number</th>
+            <th>Card Type</th>
+            <th>Location</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div id="statistics">
+        <table>
+          <thead>
+            <tr>
+              <th>Orders Count</th>
+              <th>Orders Total</th>
+              <th>Median Value</th>
+              <th>Average Check</th>
+              <th>Average Check (Female)</th>
+              <th>Average Check (Male)</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </body>
 </html>
